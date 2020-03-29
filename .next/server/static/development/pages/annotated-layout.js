@@ -117,16 +117,71 @@ class AnnotatedLayout extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Compo
   constructor(...args) {
     super(...args);
 
-    _defineProperty(this, "state", {});
+    _defineProperty(this, "state", {
+      discount: '10%',
+      enabled: false
+    });
+
+    _defineProperty(this, "handleSubmit", () => {
+      this.setState({
+        discount: this.state.discount
+      });
+      console.log('submission', this.state);
+    });
+
+    _defineProperty(this, "handleChange", field => {
+      return value => this.setState({
+        [field]: value
+      });
+    });
+
+    _defineProperty(this, "handleToggle", () => {
+      this.setState(({
+        enabled
+      }) => {
+        return {
+          enabled: !enabled
+        };
+      });
+    });
   }
 
   render() {
+    const {
+      discount,
+      enabled
+    } = this.state;
+    const contentStatus = enabled ? 'Disable' : 'Enable';
+    const textStatus = enabled ? 'enabled' : 'disabled';
     return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Page"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Layout"].AnnotatedSection, {
       title: "Default discount",
       description: "Add a product to Sample App, it will automatically be discounted."
     }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Card"], {
       sectioned: true
-    }, __jsx("div", null, "Card")))));
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Form"], {
+      onSubmit: this.handleSubmit
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["FormLayout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["TextField"], {
+      value: discount,
+      onChange: this.handleChange('discount'),
+      label: "Discount percentage",
+      type: "discount"
+    }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Stack"], {
+      distribution: "trailing"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      primary: true,
+      submit: true
+    }, "Save")))))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["Layout"].AnnotatedSection, {
+      title: "Price updates",
+      description: "Temporarily disable all Sample App price updates"
+    }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["SettingToggle"], {
+      action: {
+        content: contentStatus,
+        onAction: this.handleToggle
+      },
+      enabled: enabled
+    }, "This setting is", ' ', __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_1__["TextStyle"], {
+      variation: "strong"
+    }, textStatus), "."))));
   }
 
 }

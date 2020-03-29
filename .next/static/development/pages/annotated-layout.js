@@ -58327,7 +58327,33 @@ var AnnotatedLayout = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call.apply(_super, [this].concat(args));
 
-    Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this), "state", {});
+    Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this), "state", {
+      discount: '10%',
+      enabled: false
+    });
+
+    Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this), "handleSubmit", function () {
+      _this.setState({
+        discount: _this.state.discount
+      });
+
+      console.log('submission', _this.state);
+    });
+
+    Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this), "handleChange", function (field) {
+      return function (value) {
+        return _this.setState(Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])({}, field, value));
+      };
+    });
+
+    Object(_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_6__["default"])(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this), "handleToggle", function () {
+      _this.setState(function (_ref) {
+        var enabled = _ref.enabled;
+        return {
+          enabled: !enabled
+        };
+      });
+    });
 
     return _this;
   }
@@ -58335,12 +58361,40 @@ var AnnotatedLayout = /*#__PURE__*/function (_React$Component) {
   Object(_babel_runtime_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(AnnotatedLayout, [{
     key: "render",
     value: function render() {
+      var _this$state = this.state,
+          discount = _this$state.discount,
+          enabled = _this$state.enabled;
+      var contentStatus = enabled ? 'Disable' : 'Enable';
+      var textStatus = enabled ? 'enabled' : 'disabled';
       return __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Page"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Layout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Layout"].AnnotatedSection, {
         title: "Default discount",
         description: "Add a product to Sample App, it will automatically be discounted."
       }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Card"], {
         sectioned: true
-      }, __jsx("div", null, "Card")))));
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Form"], {
+        onSubmit: this.handleSubmit
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["FormLayout"], null, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["TextField"], {
+        value: discount,
+        onChange: this.handleChange('discount'),
+        label: "Discount percentage",
+        type: "discount"
+      }), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Stack"], {
+        distribution: "trailing"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+        primary: true,
+        submit: true
+      }, "Save")))))), __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["Layout"].AnnotatedSection, {
+        title: "Price updates",
+        description: "Temporarily disable all Sample App price updates"
+      }, __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["SettingToggle"], {
+        action: {
+          content: contentStatus,
+          onAction: this.handleToggle
+        },
+        enabled: enabled
+      }, "This setting is", ' ', __jsx(_shopify_polaris__WEBPACK_IMPORTED_MODULE_8__["TextStyle"], {
+        variation: "strong"
+      }, textStatus), "."))));
     }
   }]);
 
